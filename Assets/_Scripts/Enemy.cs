@@ -7,17 +7,23 @@ public class Enemy : MonoBehaviour
 
     private IBehaviour _currentBehaviour;
 
+    private bool _isInitialized = false;
+
     public void Initialize(IBehaviour idleBehaviour, IBehaviour reactionBehaviour)
     {
         _idleBehaviour = idleBehaviour;
         _reactionBehaviour = reactionBehaviour;
 
         _currentBehaviour = _idleBehaviour;
+        
+        _currentBehaviour.Enter();
+        _isInitialized = true;
     }
 
     private void Update()
     {
-        _currentBehaviour.Update();
+        if (_isInitialized) 
+            _currentBehaviour.Update();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,6 +32,12 @@ public class Enemy : MonoBehaviour
             SwitchBehaviour(_reactionBehaviour);
         else
             SwitchBehaviour(_idleBehaviour);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+        Gizmos.DrawSphere(transform.position, 2.5f);
     }
 
     private void SwitchBehaviour(IBehaviour behaviour)

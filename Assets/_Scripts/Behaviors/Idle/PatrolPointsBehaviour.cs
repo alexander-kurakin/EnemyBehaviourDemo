@@ -6,6 +6,11 @@ public class PatrolPointsBehaviour : IBehaviour
     private List<Transform> _patrolPoints;
     private Mover _mover;
 
+    private Transform _currentTarget;
+
+    private float _patrolSpeed = 1f;
+    private float _minCheckDistance = 0.05f;
+
     public PatrolPointsBehaviour(Mover mover, List<Transform> patrolPoints)
     {
         _patrolPoints = patrolPoints;
@@ -14,16 +19,33 @@ public class PatrolPointsBehaviour : IBehaviour
 
     public void Enter()
     {
-        //generate first patrol point
+        _currentTarget = GetNextRandomPoint();
+        Debug.Log("Set target to " +  _currentTarget);
     }
 
     public void Exit()
     {
-        //reset patrol point list
+        _patrolPoints.Clear();
     }
 
     public void Update()
     {
-        //foreach patrol point _mover.ProcessMoveTo(direction, speed);
+        Vector3 direction = _currentTarget.position - _mover.GetMovingObjectTransform().position;
+        float simpleDistance = direction.magnitude;
+        
+        ValidateTargetReached(simpleDistance);
+
+        _mover.ProcessTranslatedMoveTo(direction, _patrolSpeed);
+    }
+
+    private void ValidateTargetReached(float distance)
+    {
+        if (distance <= _minCheckDistance)
+            _currentTarget = GetNextRandomPoint();
+    }
+
+    private Transform GetNextRandomPoint()
+    {
+        return _patrolPoints[Random.Range(0, _patrolPoints.Count)];
     }
 }
