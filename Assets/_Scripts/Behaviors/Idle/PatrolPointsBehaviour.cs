@@ -8,8 +8,8 @@ public class PatrolPointsBehaviour : IBehaviour
 
     private Transform _currentTarget;
 
-    private float _patrolSpeed = 1f;
-    private float _minCheckDistance = 0.05f;
+    private float _patrolSpeed = 1.2f;
+    private float _minCheckDistance = 0.5f;
 
     public PatrolPointsBehaviour(Mover mover, List<Transform> patrolPoints)
     {
@@ -20,7 +20,6 @@ public class PatrolPointsBehaviour : IBehaviour
     public void Enter()
     {
         _currentTarget = GetNextRandomPoint();
-        Debug.Log("Set target to " +  _currentTarget);
     }
 
     public void Exit()

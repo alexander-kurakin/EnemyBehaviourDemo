@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private List<Transform> _targets;
+    [SerializeField] private Transform _centralPoint;
 
     [SerializeField] private BehaviourType _idleType;
     [SerializeField] private BehaviourType _reactionType;
@@ -30,7 +31,7 @@ public class Spawner : MonoBehaviour
                 return new StandingStillBehaviour();
 
             case BehaviourType.ChaoticMovementBehaviour:
-                return new ChaoticMovementBehaviour();
+                return new ChaoticMovementBehaviour(enemy.GetComponent<Mover>(), _centralPoint);
 
             case BehaviourType.RunawayBehaviour:
                 return new RunawayBehaviour();
