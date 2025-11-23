@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4602941833613823255}
   - component: {fileID: 1605574395859992891}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a22c02a20b849646a33a76c5e6e89ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _destroyEffect: {fileID: 198383059990825712, guid: 6a6ad5c0a69391d45a0df0743dc741fb,
+    type: 3}
 --- !u!114 &1605574395859992891
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class RunawayBehaviour : IBehaviour
 {
+    private const float Speed = 1f;
+
     private Mover _mover;
     private Enemy _enemy;
     private Hero _hero;
 
     private Vector3 _currentTarget;
-    private float _speed = 1f;
+    
 
     public RunawayBehaviour(Enemy enemy, Mover mover)
     {
@@ -33,6 +35,6 @@ public class RunawayBehaviour : IBehaviour
 
         Vector3 direction = new Vector3(_mover.transform.position.x - _currentTarget.x, 0, _mover.transform.position.z - _currentTarget.z);
 
-        _mover.ProcessTranslatedMoveTo(direction, _speed);
+        _mover.ProcessTranslatedMoveTo(direction, Speed);
     }
 }

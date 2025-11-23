@@ -5,6 +5,7 @@ public class Hero : MonoBehaviour
     private const string RunningAnimParam = "isRunning";
     private const string HorizontalAxisName = "Horizontal";
     private const string VerticalAxisName = "Vertical";
+    private const float DeadZone = 0.1f;
 
     [SerializeField] private Animator _animator;
 
@@ -13,8 +14,6 @@ public class Hero : MonoBehaviour
 
     private SmoothRotator _smoothRotator = new SmoothRotator();
     private Mover _mover;
-
-    private float _deadZone = 0.1f;
 
     private void Awake()
     {
@@ -26,7 +25,7 @@ public class Hero : MonoBehaviour
         Vector3 input = new Vector3(Input.GetAxisRaw(HorizontalAxisName), 0, Input.GetAxisRaw(VerticalAxisName));
         Vector3 normalizedInput = input.normalized;
 
-        if (input.magnitude <= _deadZone)
+        if (input.magnitude <= DeadZone)
         {
             _animator.SetBool(RunningAnimParam, false);
             return;

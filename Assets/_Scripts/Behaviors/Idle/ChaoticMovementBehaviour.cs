@@ -55,16 +55,23 @@ public class ChaoticMovementBehaviour : IBehaviour
 
     private void ValidateOutOfBoundaries()
     {
-        if ((_mover.GetMovingObjectTransform().position - _centralPointTransform.position).magnitude > ArenaRadius)
+        Vector3 directionFromCentralPoint = _mover.transform.position - _centralPointTransform.position;
+
+        if (directionFromCentralPoint.magnitude > ArenaRadius)
             _escapeTimer = EscapeRunTime;
     }
 
     private void ProcessMovement()
     {
         if (_escapeTimer > 0f)
-            _mover.ProcessTranslatedMoveTo(_centralPointTransform.position - _mover.GetMovingObjectTransform().position, Speed);
+        {
+            Vector3 directionToCentralPoint = _centralPointTransform.position - _mover.transform.position;
+            _mover.ProcessTranslatedMoveTo(directionToCentralPoint, Speed);
+        }
         else
+        {
             _mover.ProcessTranslatedMoveTo(_currentDirection, Speed);
+        }
     }
 
     private void ResetChaoticPosition()

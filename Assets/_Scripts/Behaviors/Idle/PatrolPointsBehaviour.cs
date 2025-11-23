@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class PatrolPointsBehaviour : IBehaviour
 {
+    private const float PatrolSpeed = 1.2f;
+    private const float MinProximityDistance = 0.5f;
+
     private List<Transform> _patrolPoints;
     private Mover _mover;
-
     private Transform _currentTarget;
-
-    private float _patrolSpeed = 1.2f;
-    private float _minCheckDistance = 0.5f;
 
     public PatrolPointsBehaviour(Mover mover, List<Transform> patrolPoints)
     {
@@ -29,16 +28,16 @@ public class PatrolPointsBehaviour : IBehaviour
     public void Update()
     {
         Vector3 direction = _currentTarget.position - _mover.GetMovingObjectTransform().position;
-        float simpleDistance = direction.magnitude;
+        float distance = direction.magnitude;
         
-        ValidateTargetReached(simpleDistance);
+        ValidateTargetReached(distance);
 
-        _mover.ProcessTranslatedMoveTo(direction, _patrolSpeed);
+        _mover.ProcessTranslatedMoveTo(direction, PatrolSpeed);
     }
 
     private void ValidateTargetReached(float distance)
     {
-        if (distance <= _minCheckDistance)
+        if (distance <= MinProximityDistance)
             _currentTarget = GetNextRandomPoint();
     }
 

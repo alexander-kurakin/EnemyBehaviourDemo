@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ChasingBehaviour : IBehaviour
 {
+    private const float Speed = 1f;
+
     private Mover _mover;
     private Enemy _enemy;
     private Hero _hero;
-    private Vector3 _currentTarget;
 
-    private float _speed = 1f;
+    private Vector3 _currentTarget;
+    
+
     public ChasingBehaviour(Enemy enemy, Mover mover) 
     {
         _mover = mover;
@@ -30,6 +33,9 @@ public class ChasingBehaviour : IBehaviour
     public void Update()
     {
         _currentTarget = _hero.transform.position;
-        _mover.ProcessTranslatedMoveTo(_currentTarget - _mover.transform.position, _speed);
+
+        Vector3 direction = new Vector3(_currentTarget.x - _mover.transform.position.x, 0, _currentTarget.z - _mover.transform.position.z);
+
+        _mover.ProcessTranslatedMoveTo(direction, Speed);
     }
 }
